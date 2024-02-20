@@ -1,0 +1,67 @@
+@startuml
+
+' Layout Configuration (adjust positions as needed)
+left to right direction
+
+' Classes
+class Person {
+  - id : UUID
+  - name : String
+  - surname : String
+}
+
+Person "1" o-- "0..*" Email
+Person "1" o-- "0..*" ImportantDate
+Person "1" o-- "0..*" SocialMediaHandle
+
+class Email {
+  - id : UUID
+  - email : String
+  - emailType : EmailType
+}
+
+class ImportantDate {
+  - type : String
+  - date : Date
+  - format : DateFormat
+}
+
+class SocialMediaHandle {
+  - id : UUID
+  - platform : String
+  - handle : String
+}
+
+' Enums
+
+enum EmailType {
+  Personal
+  Work
+  Academic
+  Other
+}
+
+enum SocialMediaPlatform {
+  FACEBOOK
+  TWITTER
+  INSTAGRAM
+  LINKEDIN
+  SNAPCHAT
+  TIKTOK
+  YOUTUBE
+  PINTEREST
+  REDDIT
+}
+
+enum DateFormat {
+  day
+  dayTime
+  time
+}
+
+enum DateType {
+  Birthday
+  Weddingday
+}
+
+@enduml

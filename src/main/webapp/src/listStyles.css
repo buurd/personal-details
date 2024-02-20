@@ -1,0 +1,42 @@
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+}
+
+h1 {
+    color: #333;
+    font-size: 2rem;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 1rem 2rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2rem 0;
+    cursor: pointer;
+}
+
+.person-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.person-item {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 1.5rem;
+    margin: 1rem 0;
+}
+
+.person-item h2 {
+    font-size: 1.5rem;
+    color: #333;
+}

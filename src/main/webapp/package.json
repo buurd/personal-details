@@ -1,0 +1,33 @@
+{
+  "name": "se.attafemton.personaldetails",
+  "version": "1.0.0",
+  "description": "Keep your contact inforation secure. ",
+  "main": "__index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build"
+  },
+  "author": "Roland Heimdahl",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.28.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.22.0",
+    "react-script": "^2.0.5",
+    "react-scripts": "^5.0.1"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "proxy": "http://localhost:8080"
+}

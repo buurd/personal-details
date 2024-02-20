@@ -1,0 +1,6 @@
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+  web:
+    resources:
+      static-locations: "classpath:/static/"
