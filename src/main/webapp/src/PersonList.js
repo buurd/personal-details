@@ -15,7 +15,13 @@ class PersonList extends Component {
         // Call your API here
         fetch('/api/person/findAll')
             .then((response) => response.json())
-            .then((data) => this.setState({persons: data}));
+            .then((data) => {
+                if (Array.isArray(data)) {
+                    this.setState({persons: data});
+                } else {
+                    console.log('Error: Expected an array but received', data);
+                }
+            });
     }
 
     render() {

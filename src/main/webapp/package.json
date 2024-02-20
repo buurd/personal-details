@@ -1,7 +1,7 @@
 {
   "name": "se.attafemton.personaldetails",
   "version": "1.0.0",
-  "description": "Keep your contact inforation secure. ",
+  "description": "Keep your contact information secure. ",
   "main": "__index.js",
   "scripts": {
     "start": "react-scripts start",

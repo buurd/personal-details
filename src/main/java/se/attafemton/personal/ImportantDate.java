@@ -3,9 +3,10 @@ package se.attafemton.personal;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import java.util.Date;
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ public class ImportantDate {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator",
             parameters = { @Parameter(name = "uuid_gen_strategy_class",
                     value = "org.hibernate.id.uuid.StandardRandomStrategy") })
+    @Column(columnDefinition="BINARY(16)")
     private UUID id;
     private DateType type;
     private Date date;
