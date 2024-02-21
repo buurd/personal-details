@@ -7,6 +7,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+
+import jakarta.persistence.Convert;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,11 +16,12 @@ import java.util.UUID;
 public class ImportantDate {
 
     @Id
+    @Column(columnDefinition="BINARY(16)")
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator",
             parameters = { @Parameter(name = "uuid_gen_strategy_class",
                     value = "org.hibernate.id.uuid.StandardRandomStrategy") })
-    @Column(columnDefinition="BINARY(16)")
+    @Convert(converter = UuidToBinaryConverter.class)
     private UUID id;
     private DateType type;
     private Date date;

@@ -11,24 +11,19 @@ import jakarta.persistence.OneToMany;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.GenericGenerator;
 
+import jakarta.persistence.Convert;
 import java.util.List;
 import java.util.UUID;
 
 @Entity
 public class Person {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator",
-            parameters = {
-                    @Parameter(
-                            name = "uuid_gen_strategy_class",
-                            value = "org.hibernate.id.uuid.StandardRandomStrategy"
-                    )
-            }
-    )
     @Column(columnDefinition="BINARY(16)")
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator",
+            parameters = { @Parameter(name = "uuid_gen_strategy_class",
+                    value = "org.hibernate.id.uuid.StandardRandomStrategy") })
+    @Convert(converter = UuidToBinaryConverter.class)
     private UUID id;
     private String name;
     private String surname;

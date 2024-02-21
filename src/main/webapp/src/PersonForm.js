@@ -54,7 +54,7 @@ function PersonForm() {
         try {
             const response = await axios.post('/persons', person);
             console.log('Success:', response);
-            navigate(`/person/${response.data.id}`);
+            navigate(`/personView/${response.data.id}`);
         } catch (error) {
             console.error('Error:', error);
         }

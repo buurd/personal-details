@@ -15,8 +15,8 @@ public class PersonResource {
     private PersonRepository personRepository;
 
     @GetMapping("/{id}")
-    public Person findById(@PathVariable UUID id) {
-        return personRepository.findById(id).orElse(null);
+    public ResponseEntity<Person> findById(@PathVariable UUID id) {
+        return personRepository.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping

@@ -6,13 +6,23 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import jakarta.persistence.Convert;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
+import java.util.UUID;
+
 @Entity
 public class SocialMediaHandle {
 
     @Id
     @Column(columnDefinition="BINARY(16)")
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator",
+            parameters = { @Parameter(name = "uuid_gen_strategy_class",
+                    value = "org.hibernate.id.uuid.StandardRandomStrategy") })
+    @Convert(converter = UuidToBinaryConverter.class)
+    private UUID id;
     private String platform;
     private String handle;
 
@@ -24,11 +34,11 @@ public class SocialMediaHandle {
         this.handle = handle;
     }
 
-    public Long getId() {
+    public UUID getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(UUID id) {
         this.id = id;
     }
 

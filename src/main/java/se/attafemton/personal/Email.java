@@ -9,6 +9,8 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+
+import jakarta.persistence.Convert;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -22,6 +24,7 @@ public class Email {
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator",
             parameters = { @Parameter(name = "uuid_gen_strategy_class",
                     value = "org.hibernate.id.uuid.StandardRandomStrategy") })
+    @Convert(converter = UuidToBinaryConverter.class)
     private UUID id;
     private String email;
 
