@@ -13,9 +13,9 @@ function PersonForm() {
     const { id } = useParams();
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
-    const [emails, setEmails] = useState([{}]);
-    const [importantDates, setImportantDates] = useState([{}]);
-    const [socialMediaHandles, setSocialMediaHandles] = useState([{}]);
+    const [emails, setEmails] = useState([]);
+    const [importantDates, setImportantDates] = useState([]);
+    const [socialMediaHandles, setSocialMediaHandles] = useState([]);
 
     useEffect(() => {
         if (id) {
@@ -47,6 +47,13 @@ function PersonForm() {
         newHandles[index] = {...newHandles[index], [event.target.name]: event.target.value};
         setSocialMediaHandles(newHandles);
     };
+    const handleAddEmail = () => setEmails([...emails, {}]);
+    const handleRemoveEmail = index => setEmails(emails.filter((_, i) => i !== index));
+    const handleAddDate = () => setImportantDates([...importantDates, {}]);
+    const handleRemoveDate = index => setImportantDates(importantDates.filter((_, i) => i !== index));
+    const handleAddSocialMedia = () => setSocialMediaHandles([...socialMediaHandles, {}]);
+    const handleRemoveSocialMedia = index => setSocialMediaHandles(socialMediaHandles.filter((_, i) => i !== index));
+
     const handleSubmit = async event => {
         event.preventDefault();
 
@@ -78,9 +85,10 @@ function PersonForm() {
             <label>Name:
                 <input type="text" value={name} onChange={handleNameChange} />
             </label>
-            <label>Surame:
+            <label>Surname:
                 <input type="text" value={surname} onChange={handleSurnameChange} />
             </label>
+
             {emails.map((email, index) => (
                 <div key={index}>
                     <label>Email:
@@ -91,8 +99,11 @@ function PersonForm() {
                             {EMAIL_TYPES.map(type => <option value={type}>{type}</option>)}
                         </select>
                     </label>
+                    <button onClick={() => handleRemoveEmail(index)}>Remove</button>
                 </div>
             ))}
+            <button onClick={handleAddEmail}>Add Email</button>
+
             {importantDates.map((date, index) => (
                 <div key={index}>
                     <label>Date:
@@ -108,8 +119,10 @@ function PersonForm() {
                             {DATE_FORMATS.map(format => <option key={format} value={format}>{format}</option>)}
                         </select>
                     </label>
+                    <button onClick={() => handleRemoveDate(index)}>Remove</button>
                 </div>
             ))}
+            <button onClick={handleAddDate}>Add Date</button>
 
             {socialMediaHandles.map((handle, index) => (
                 <div key={index}>
@@ -121,8 +134,11 @@ function PersonForm() {
                     <label>Handle:
                         <input type="text" name="handle" value={handle.handle} onChange={(event) => handleSocialMediaChange(index, event)} />
                     </label>
+                    <button onClick={() => handleRemoveSocialMedia(index)}>Remove</button>
                 </div>
             ))}
+            <button onClick={handleAddSocialMedia}>Add Social Media</button>
+
             <button type="submit">Submit</button>
         </form>
     );

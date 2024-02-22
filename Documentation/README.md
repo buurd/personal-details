@@ -60,14 +60,16 @@ The system has a domain. Currently it has the following objects
  - REDDIT
 
 # Uses cases
-- As a person of the system i would like to register my personal details, such as 
+- As a user of the system i would like to register my personal details, such as 
     - name, 
     - adresses, 
     - email, 
     - handles to social media, 
     - important dates. 
 
-- As a person of the system i would like to edit my personal details when they are subject to change.
+- As a user of the system I would like to edit my personal details when they are subject to change.
+
+- As a user of the system I would like to add and remove on all attributes that are lists in the Person-object.
 
 # Non functional requirements
  - The application shall not contain dependencies on deprecated dependencies. 
