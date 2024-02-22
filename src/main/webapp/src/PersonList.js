@@ -13,7 +13,7 @@ class PersonList extends Component {
 
     componentDidMount() {
         // Call your API here
-        fetch('/api/person/findAll')
+        fetch('/persons')
             .then((response) => response.json())
             .then((data) => {
                 if (Array.isArray(data)) {

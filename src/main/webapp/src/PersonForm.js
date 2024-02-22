@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import './formStyles.css';
 
 const EMAIL_TYPES = ['Select a value', 'PERSONAL', 'WORK', 'ACADEMIC', 'OTHERS'];
@@ -10,11 +10,25 @@ const DATE_FORMATS = ['Select a value', 'DAY', 'DAY_TIME', 'TIME'];
 
 function PersonForm() {
     const navigate = useNavigate();
+    const { id } = useParams();
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
-    const [emails, setEmails] = useState([{email: "", emailType: ""}]);
-    const [importantDates, setImportantDates] = useState([{date: "", type: "", format: ""}]);
-    const [socialMediaHandles, setSocialMediaHandles] = useState([{platform: "", handle: ""}]);
+    const [emails, setEmails] = useState([{}]);
+    const [importantDates, setImportantDates] = useState([{}]);
+    const [socialMediaHandles, setSocialMediaHandles] = useState([{}]);
+
+    useEffect(() => {
+        if (id) {
+            axios.get(`/persons/${id}`).then(response => {
+                const person = response.data;
+                setName(person.name);
+                setSurname(person.surname);
+                setEmails(person.emails);
+                setImportantDates(person.importantDates);
+                setSocialMediaHandles(person.socialMediaHandles);
+            });
+        }
+    }, [id]);
 
     const handleNameChange = event => setName(event.target.value);
     const handleSurnameChange = event => setSurname(event.target.value);
@@ -53,7 +67,6 @@ function PersonForm() {
 
         try {
             const response = await axios.post('/persons', person);
-            console.log('Success:', response);
             navigate(`/personView/${response.data.id}`);
         } catch (error) {
             console.error('Error:', error);
@@ -62,61 +75,54 @@ function PersonForm() {
 
     return (
         <form onSubmit={handleSubmit}>
-            <label>Name</label>
-            <input type="text" value={name} onChange={handleNameChange} />
-
-            <label>Surname</label>
-            <input type="text" value={surname} onChange={handleSurnameChange} />
-
+            <label>Name:
+                <input type="text" value={name} onChange={handleNameChange} />
+            </label>
+            <label>Surame:
+                <input type="text" value={surname} onChange={handleSurnameChange} />
+            </label>
             {emails.map((email, index) => (
                 <div key={index}>
-                    <label>Email</label>
-                    <input type="email" name="email" value={email.email} onChange={event => handleEmailChange(index, event)} />
-
-                    <label>Email type</label>
-                    <select name="emailType" value={email.emailType} onChange={event => handleEmailChange(index, event)}>
-                        {EMAIL_TYPES.map((emailType, index) => (
-                            <option key={index} value={emailType}>{emailType}</option>
-                        ))}
-                    </select>
+                    <label>Email:
+                        <input type="text" name="email" value={email.email} onChange={(event) => handleEmailChange(index, event)} />
+                    </label>
+                    <label>Type:
+                        <select name="emailType" value={email.emailType} onChange={(event) => handleEmailChange(index, event)}>
+                            {EMAIL_TYPES.map(type => <option value={type}>{type}</option>)}
+                        </select>
+                    </label>
                 </div>
             ))}
-
-            {importantDates.map((importantDate, index) => (
+            {importantDates.map((date, index) => (
                 <div key={index}>
-                    <label>Date</label>
-                    <input type="date" name="date" value={importantDate.date} onChange={event => handleDateChange(index, event)} />
-
-                    <label>Date type</label>
-                    <select name="type" value={importantDate.type} onChange={event => handleDateChange(index, event)}>
-                        {DATE_TYPES.map((dateType, index) => (
-                            <option key={index} value={dateType}>{dateType}</option>
-                        ))}
-                    </select>
-
-                    <label>Date format</label>
-                    <select name="format" value={importantDate.format} onChange={event => handleDateChange(index, event)}>
-                        {DATE_FORMATS.map((dateFormat, index) => (
-                            <option key={index} value={dateFormat}>{dateFormat}</option>
-                        ))}
-                    </select>
+                    <label>Date:
+                        <input type="date" name="date" value={date.date} onChange={(event) => handleDateChange(index, event)} />
+                    </label>
+                    <label>Type:
+                        <select name="type" value={date.type} onChange={(event) => handleDateChange(index, event)}>
+                            {DATE_TYPES.map(type => <option key={type} value={type}>{type}</option>)}
+                        </select>
+                    </label>
+                    <label>Format:
+                        <select name="format" value={date.format} onChange={(event) => handleDateChange(index, event)}>
+                            {DATE_FORMATS.map(format => <option key={format} value={format}>{format}</option>)}
+                        </select>
+                    </label>
                 </div>
             ))}
 
-            {socialMediaHandles.map((socialMediaHandle, index) => (
+            {socialMediaHandles.map((handle, index) => (
                 <div key={index}>
-                    <label>Social Media Platform</label>
-                    <select name="platform" value={socialMediaHandle.platform} onChange={event => handleSocialMediaChange(index, event)}>
-                        {SOCIAL_MEDIA_PLATFORMS.map((platform, index) => (
-                            <option key={index} value={platform}>{platform}</option>
-                        ))}
-                    </select>
-
-                    <label>Handle</label>
-                    <input type="text" name="handle" value={socialMediaHandle.handle} onChange={event => handleSocialMediaChange(index, event)} />
+                    <label>Platform:
+                        <select name="platform" value={handle.platform} onChange={(event) => handleSocialMediaChange(index, event)}>
+                            {SOCIAL_MEDIA_PLATFORMS.map(platform => <option key={platform} value={platform}>{platform}</option>)}
+                        </select>
+                    </label>
+                    <label>Handle:
+                        <input type="text" name="handle" value={handle.handle} onChange={(event) => handleSocialMediaChange(index, event)} />
+                    </label>
                 </div>
             ))}
-
             <button type="submit">Submit</button>
         </form>
     );

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import './indexStyles.css';
+import { Link, useParams } from 'react-router-dom';
 
 const PersonView = () => {
     const [person, setPerson] = useState(null);
@@ -11,7 +11,7 @@ const PersonView = () => {
         axios.get(`/persons/${id}`)
             .then(response => setPerson(response.data))
             .catch(error => console.error('Error:', error));
-    }, [id]);  // run t effect whenever the id changes
+    }, [id]);  // run the effect whenever the id changes
 
     return person && (
         <div>
@@ -34,6 +34,8 @@ const PersonView = () => {
                     <p>Platform: {handle.platform} ~ Handle: {handle.handle}</p>
                 </div>
             ))}
+
+            <Link to={`/personForm/${id}`}>Edit this person</Link>
         </div>
     );
 };
