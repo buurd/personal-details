@@ -1,6 +1,7 @@
 package se.attafemton.personal;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import se.attafemton.personal.model.Person;
 
 import java.util.UUID;
 

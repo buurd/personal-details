@@ -1,4 +1,4 @@
-package se.attafemton.personal;
+package se.attafemton.personal.configuration;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;

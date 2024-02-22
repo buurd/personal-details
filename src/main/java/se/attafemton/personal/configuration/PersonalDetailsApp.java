@@ -1,4 +1,4 @@
-package se.attafemton.personal;
+package se.attafemton.personal.configuration;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

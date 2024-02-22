@@ -1,4 +1,4 @@
-package se.attafemton.personal;
+package se.attafemton.personal.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -12,6 +12,8 @@ import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.GenericGenerator;
 
 import jakarta.persistence.Convert;
+import se.attafemton.personal.UuidToBinaryConverter;
+
 import java.util.List;
 import java.util.UUID;
 

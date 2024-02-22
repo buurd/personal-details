@@ -6,6 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import se.attafemton.personal.model.Email;
+import se.attafemton.personal.model.ImportantDate;
+import se.attafemton.personal.model.Person;
+import se.attafemton.personal.model.SocialMediaHandle;
 
 import java.util.ArrayList;
 import java.util.Date;

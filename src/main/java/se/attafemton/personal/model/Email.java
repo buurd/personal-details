@@ -1,4 +1,4 @@
-package se.attafemton.personal;
+package se.attafemton.personal.model;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
@@ -11,6 +11,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 import jakarta.persistence.Convert;
+import se.attafemton.personal.UuidToBinaryConverter;
+
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

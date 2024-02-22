@@ -9,6 +9,10 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import se.attafemton.personal.model.Email;
+import se.attafemton.personal.model.ImportantDate;
+import se.attafemton.personal.model.Person;
+import se.attafemton.personal.model.SocialMediaHandle;
 
 import java.util.Arrays;
 import java.util.Collections;
