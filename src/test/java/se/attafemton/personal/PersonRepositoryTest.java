@@ -4,8 +4,9 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.context.SpringBootTest;
+import jakarta.persistence.EntityManager;
+import org.springframework.transaction.annotation.Transactional;
 import se.attafemton.personal.model.Email;
 import se.attafemton.personal.model.ImportantDate;
 import se.attafemton.personal.model.Person;
@@ -18,17 +19,18 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
+@SpringBootTest(classes = PersonalDetailsApp.class)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class PersonRepositoryTest {
 
     @Autowired
-    private TestEntityManager entityManager;
+    private EntityManager entityManager;
 
     @Autowired
     private PersonRepository personRepository;
 
     @Test
+    @Transactional
     public void testCreateAndFindById() {
         Email email = new Email("john.doe@email.com", Email.EmailType.WORK);
         List<Email> emails = new ArrayList<>();
@@ -43,7 +45,8 @@ public class PersonRepositoryTest {
         socialMediaHandles.add(socialMediaHandle);
 
         Person person = new Person("John", "Doe", emails, importantDates, socialMediaHandles);
-        person = entityManager.persistAndFlush(person);
+        entityManager.persist(person);
+        entityManager.flush();
 
         Person found = personRepository.findById(person.getId()).orElse(null);
         assertThat(found).isNotNull();
@@ -56,6 +59,7 @@ public class PersonRepositoryTest {
     }
 
     @Test
+    @Transactional
     public void testFindAll() {
         Email email1 = new Email("john.doe@email.com", Email.EmailType.WORK);
         Email email2 = new Email("jane.doe@email.com", Email.EmailType.PERSONAL);
@@ -81,14 +85,16 @@ public class PersonRepositoryTest {
         Person person1 = new Person("John", "Doe", emails1, importantDates1, socialMediaHandles1);
         Person person2 = new Person("Jane", "Doe", emails2, importantDates2, socialMediaHandles2);
 
-        entityManager.persistAndFlush(person1);
-        entityManager.persistAndFlush(person2);
+        entityManager.persist(person1);
+        entityManager.persist(person2);
+        entityManager.flush();
 
         List<Person> found = personRepository.findAll();
         assertThat(found).hasSize(2);
     }
 
     @Test
+    @Transactional
     public void testPersonWithManyEmails() {
         Email email1 = new Email("john.doe@work.com", Email.EmailType.WORK);
         Email email2 = new Email("john.doe@home.com", Email.EmailType.PERSONAL);
@@ -109,7 +115,8 @@ public class PersonRepositoryTest {
         socialMediaHandles.add(socialMediaHandle2);
 
         Person person = new Person("John", "Doe", emails, importantDates, socialMediaHandles);
-        person = entityManager.persistAndFlush(person);
+        entityManager.persist(person);
+        entityManager.flush();
 
         Person found = personRepository.findById(person.getId()).orElse(null);
         assertThat(found).isNotNull();
@@ -125,21 +132,24 @@ public class PersonRepositoryTest {
     }
 
     @Test
+    @Transactional
     public void testUpdatePerson() {
         // Create a person
         Person personA = new Person();
         personA.setName("Test Name");
         personA.setSurname("Test Surname");
         // Save it in database
-        Person savedPerson = entityManager.persistAndFlush(personA);
+        entityManager.persist(personA);
+        entityManager.flush();
 
         // Update the stored person
-        savedPerson.setName("Updated Name");
-        savedPerson.setSurname("Updated Surname");
-        entityManager.persistAndFlush(savedPerson);
+        personA.setName("Updated Name");
+        personA.setSurname("Updated Surname");
+        entityManager.persist(personA);
+        entityManager.flush();
 
         // Retrieve the updated person from repository
-        Optional<Person> updatedPersonOptional = personRepository.findById(savedPerson.getId());
+        Optional<Person> updatedPersonOptional = personRepository.findById(personA.getId());
 
         // Check if any person is returned
         Assertions.assertTrue(updatedPersonOptional.isPresent());

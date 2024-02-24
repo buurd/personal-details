@@ -6,7 +6,7 @@ spring:
     driverClassName: org.h2.Driver
   web:
     resources:
-      static-locations: "classpath:/static/"
+      static-locations: "classpath:/static"
   jpa:
     hibernate:
       ddl-auto: update
