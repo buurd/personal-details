@@ -19,13 +19,13 @@ const PersonView = () => {
             <h2>Emails</h2>
             {person.emails && person.emails.map((email, index) => (
                 <div key={index}>
-                    <p>{email.email} ({email.type.toLowerCase()})</p>
+                    <p>{email.email} ({email.type ? email.type.toLowerCase() : ''})</p>
                 </div>
             ))}
             <h2>Important Dates</h2>
             {person.importantDates && person.importantDates.map((date, index) => (
                 <div key={index}>
-                    <p>Type: {date.type}~ Date: {date.date} ~ Format: {date.format}</p>
+                    <p>Type: {date.type || ''} ~ Date: {date.date || ''} ~ Format: {date.format || ''}</p>
                 </div>
             ))}
             <h2>Social Media Handles</h2>

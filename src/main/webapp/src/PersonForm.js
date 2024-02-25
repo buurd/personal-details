@@ -99,14 +99,22 @@ function PersonForm() {
                             {EMAIL_TYPES.map(type => <option value={type}>{type}</option>)}
                         </select>
                     </label>
-                    <button onClick={() => handleRemoveEmail(index)}>Remove</button>
+                    <button onClick={(event) => {
+                        event.preventDefault();
+                        handleRemoveEmail(index);
+                    }}>Remove
+                    </button>
                 </div>
             ))}
-            <button onClick={handleAddEmail}>Add Email</button>
+            <button onClick={(event) => {
+                event.preventDefault();
+                handleAddEmail();
+            }}>Add Email
+            </button>
 
             {importantDates.map((date, index) => (
                 <div key={index}>
-                    <label>Date:
+                <label>Date:
                         <input type="date" name="date" value={date.date} onChange={(event) => handleDateChange(index, event)} />
                     </label>
                     <label>Type:
@@ -119,25 +127,44 @@ function PersonForm() {
                             {DATE_FORMATS.map(format => <option key={format} value={format}>{format}</option>)}
                         </select>
                     </label>
-                    <button onClick={() => handleRemoveDate(index)}>Remove</button>
+                    <button onClick={(event) => {
+                        event.preventDefault();
+                        handleRemoveDate(index);
+                    }}>Remove
+                    </button>
                 </div>
             ))}
-            <button onClick={handleAddDate}>Add Date</button>
+            <button onClick={(event) => {
+                event.preventDefault();
+                handleAddDate();
+            }}>Add Date
+            </button>
 
             {socialMediaHandles.map((handle, index) => (
                 <div key={index}>
                     <label>Platform:
-                        <select name="platform" value={handle.platform} onChange={(event) => handleSocialMediaChange(index, event)}>
-                            {SOCIAL_MEDIA_PLATFORMS.map(platform => <option key={platform} value={platform}>{platform}</option>)}
+                        <select name="platform" value={handle.platform}
+                                onChange={(event) => handleSocialMediaChange(index, event)}>
+                            {SOCIAL_MEDIA_PLATFORMS.map(platform => <option key={platform}
+                                                                            value={platform}>{platform}</option>)}
                         </select>
                     </label>
                     <label>Handle:
-                        <input type="text" name="handle" value={handle.handle} onChange={(event) => handleSocialMediaChange(index, event)} />
+                        <input type="text" name="handle" value={handle.handle}
+                               onChange={(event) => handleSocialMediaChange(index, event)}/>
                     </label>
-                    <button onClick={() => handleRemoveSocialMedia(index)}>Remove</button>
+                    <button onClick={(event) => {
+                        event.preventDefault();
+                        handleRemoveSocialMedia(index);
+                    }}>Remove
+                    </button>
                 </div>
             ))}
-            <button onClick={handleAddSocialMedia}>Add Social Media</button>
+            <button onClick={(event) => {
+                event.preventDefault();
+                handleAddSocialMedia();
+            }}>Add Social Media
+            </button>
 
             <button type="submit">Submit</button>
         </form>
