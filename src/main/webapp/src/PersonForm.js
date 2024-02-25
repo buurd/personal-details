@@ -13,7 +13,7 @@ function PersonForm() {
     const { id } = useParams();
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
-    const [emails, setEmails] = useState([]);
+    const [emails, setEmails] = useState([{email: "", type: ""}]);
     const [importantDates, setImportantDates] = useState([]);
     const [socialMediaHandles, setSocialMediaHandles] = useState([]);
 
@@ -21,11 +21,12 @@ function PersonForm() {
         if (id) {
             axios.get(`/persons/${id}`).then(response => {
                 const person = response.data;
-                setName(person.name);
-                setSurname(person.surname);
-                setEmails(person.emails);
-                setImportantDates(person.importantDates);
-                setSocialMediaHandles(person.socialMediaHandles);
+
+                setName(person.name || "");
+                setSurname(person.surname || "");
+                setEmails(person.emails.map(email => ({ ...email, type: email.type || "" })));
+                setImportantDates(person.importantDates || []);
+                setSocialMediaHandles(person.socialMediaHandles || []);
             });
         }
     }, [id]);
@@ -34,6 +35,7 @@ function PersonForm() {
     const handleSurnameChange = event => setSurname(event.target.value);
     const handleEmailChange = (index, event) => {
         const newEmails = [...emails];
+        // Using correct property 'type' to save the state
         newEmails[index] = {...newEmails[index], [event.target.name]: event.target.value};
         setEmails(newEmails);
     };
@@ -47,7 +49,7 @@ function PersonForm() {
         newHandles[index] = {...newHandles[index], [event.target.name]: event.target.value};
         setSocialMediaHandles(newHandles);
     };
-    const handleAddEmail = () => setEmails([...emails, {}]);
+    const handleAddEmail = () => setEmails([...emails, {email: "", type: ""}]);
     const handleRemoveEmail = index => setEmails(emails.filter((_, i) => i !== index));
     const handleAddDate = () => setImportantDates([...importantDates, {}]);
     const handleRemoveDate = index => setImportantDates(importantDates.filter((_, i) => i !== index));
@@ -57,26 +59,34 @@ function PersonForm() {
     const handleSubmit = async event => {
         event.preventDefault();
 
-        if (name === "" || surname === "" || !emails.every(email => email.email !== "" && email.emailType !== "Select a value") ||
-            !importantDates.every(date => date.date !== "" && date.type !== "Select a value" && date.format !== "Select a value") ||
-            !socialMediaHandles.every(handle => handle.platform !== "Select a value" && handle.handle !== "")) {
+        if (
+            name === "" ||
+            surname === "" ||
+            !emails.every(
+                email => email.email !== "" && email.type !== "Select a value"
+            ) ||
+            !importantDates.every(
+                date => date.date !== "" && date.type !== "Select a value"
+            ) ||
+            !socialMediaHandles.every(
+                handle => handle.handle !== "" && handle.platform !== "Select a value"
+            )
+        ) {
             alert("Please fill in all fields");
             return;
         }
 
-        const person = {
-            name: name,
-            surname: surname,
-            emails: emails.map(email => ({ ...email, type: email.emailType })),
-            importantDates: importantDates,
-            socialMediaHandles: socialMediaHandles
-        };
-
         try {
-            const response = await axios.post('/persons', person);
+            const response = await axios.post('/persons', {
+                name,
+                surname,
+                emails,
+                importantDates,
+                socialMediaHandles,
+            });
             navigate(`/personView/${response.data.id}`);
         } catch (error) {
-            console.error('Error:', error);
+            console.error("Error:", error);
         }
     };
 
@@ -92,11 +102,11 @@ function PersonForm() {
             {emails.map((email, index) => (
                 <div key={index}>
                     <label>Email:
-                        <input type="text" name="email" value={email.email} onChange={(event) => handleEmailChange(index, event)} />
+                        <input type="email" name="email" value={email.email} onChange={(event) => handleEmailChange(index, event)} />
                     </label>
                     <label>Type:
-                        <select name="emailType" value={email.emailType} onChange={(event) => handleEmailChange(index, event)}>
-                            {EMAIL_TYPES.map(type => <option value={type}>{type}</option>)}
+                        <select name="type" value={email.type} onChange={(event) => handleEmailChange(index, event)}>
+                            {EMAIL_TYPES.map(type => <option key={type} value={type}>{type}</option>)}
                         </select>
                     </label>
                     <button onClick={(event) => {
