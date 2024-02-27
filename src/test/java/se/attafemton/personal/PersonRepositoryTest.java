@@ -12,6 +12,7 @@ import se.attafemton.personal.model.ImportantDate;
 import se.attafemton.personal.model.Person;
 import se.attafemton.personal.model.SocialMediaHandle;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -36,7 +37,7 @@ public class PersonRepositoryTest {
         List<Email> emails = new ArrayList<>();
         emails.add(email);
 
-        ImportantDate importantDate = new ImportantDate(ImportantDate.DateType.BIRTHDAY, new Date(), ImportantDate.DateFormat.DAY);
+        ImportantDate importantDate = new ImportantDate(ImportantDate.DateType.BIRTHDAY, LocalDateTime.now(), ImportantDate.DateFormat.DAY);
         List<ImportantDate> importantDates = new ArrayList<>();
         importantDates.add(importantDate);
 
@@ -68,8 +69,8 @@ public class PersonRepositoryTest {
         emails1.add(email1);
         emails2.add(email2);
 
-        ImportantDate importantDate1 = new ImportantDate(ImportantDate.DateType.BIRTHDAY, new Date(), ImportantDate.DateFormat.DAY);
-        ImportantDate importantDate2 = new ImportantDate(ImportantDate.DateType.WEDDING_DAY, new Date(), ImportantDate.DateFormat.DAY_TIME);
+        ImportantDate importantDate1 = new ImportantDate(ImportantDate.DateType.BIRTHDAY, LocalDateTime.now(), ImportantDate.DateFormat.DAY);
+        ImportantDate importantDate2 = new ImportantDate(ImportantDate.DateType.WEDDING_DAY, LocalDateTime.now(), ImportantDate.DateFormat.DAY_TIME);
         List<ImportantDate> importantDates1 = new ArrayList<>();
         List<ImportantDate> importantDates2 = new ArrayList<>();
         importantDates1.add(importantDate1);
@@ -102,8 +103,8 @@ public class PersonRepositoryTest {
         emails.add(email1);
         emails.add(email2);
 
-        ImportantDate importantDate1 = new ImportantDate(ImportantDate.DateType.BIRTHDAY, new Date(), ImportantDate.DateFormat.DAY);
-        ImportantDate importantDate2 = new ImportantDate(ImportantDate.DateType.WEDDING_DAY, new Date(), ImportantDate.DateFormat.DAY_TIME);
+        ImportantDate importantDate1 = new ImportantDate(ImportantDate.DateType.BIRTHDAY, LocalDateTime.now(), ImportantDate.DateFormat.DAY);
+        ImportantDate importantDate2 = new ImportantDate(ImportantDate.DateType.WEDDING_DAY, LocalDateTime.now(), ImportantDate.DateFormat.DAY_TIME);
         List<ImportantDate> importantDates = new ArrayList<>();
         importantDates.add(importantDate1);
         importantDates.add(importantDate2);

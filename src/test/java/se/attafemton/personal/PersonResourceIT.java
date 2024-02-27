@@ -14,6 +14,7 @@ import se.attafemton.personal.model.ImportantDate;
 import se.attafemton.personal.model.Person;
 import se.attafemton.personal.model.SocialMediaHandle;
 
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
@@ -29,7 +30,7 @@ public class PersonResourceIT {
     @Test
     public void testCreatePerson() {
         Email email = new Email("john.doe@example.com", Email.EmailType.PERSONAL);
-        ImportantDate importantDate = new ImportantDate(ImportantDate.DateType.BIRTHDAY, new Date(), ImportantDate.DateFormat.DAY);
+        ImportantDate importantDate = new ImportantDate(ImportantDate.DateType.BIRTHDAY, LocalDateTime.now(), ImportantDate.DateFormat.DAY);
         SocialMediaHandle socialMediaHandle = new SocialMediaHandle("plattform", "handle");
         Person person = new Person("John", "Doe", Collections.singletonList(email), Collections.singletonList(importantDate), Collections.singletonList(socialMediaHandle));
 
@@ -65,8 +66,8 @@ public class PersonResourceIT {
     public void testCreatePersonWithTwoEmails() {
         Email email1 = new Email("john.doe@example.com", Email.EmailType.PERSONAL);
         Email email2 = new Email("j.doe@work.com", Email.EmailType.WORK);
-        ImportantDate importantDate1 = new ImportantDate(ImportantDate.DateType.BIRTHDAY, new Date(), ImportantDate.DateFormat.DAY);
-        ImportantDate importantDate2 = new ImportantDate(ImportantDate.DateType.WEDDING_DAY, new Date(), ImportantDate.DateFormat.DAY_TIME);
+        ImportantDate importantDate1 = new ImportantDate(ImportantDate.DateType.BIRTHDAY, LocalDateTime.now(), ImportantDate.DateFormat.DAY);
+        ImportantDate importantDate2 = new ImportantDate(ImportantDate.DateType.WEDDING_DAY, LocalDateTime.now(), ImportantDate.DateFormat.DAY_TIME);
         SocialMediaHandle socialMediaHandle = new SocialMediaHandle("plattform", "handle");
         Person person = new Person("John", "Doe", Arrays.asList(email1, email2), Arrays.asList(importantDate1, importantDate2), Collections.singletonList(socialMediaHandle));
 

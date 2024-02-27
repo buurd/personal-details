@@ -14,6 +14,7 @@ import org.hibernate.annotations.GenericGenerator;
 import jakarta.persistence.Convert;
 import se.attafemton.personal.UuidToBinaryConverter;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -39,9 +40,14 @@ public class Person {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SocialMediaHandle> socialMediaHandles;
 
-    public Person() {}
+    public Person() {
+        this.emails = new ArrayList<>();
+        this.importantDates = new ArrayList<>();
+        this.socialMediaHandles = new ArrayList<>();
+    }
 
     public Person(String name, String surname, List<Email> email, List<ImportantDate> importantDates, List<SocialMediaHandle> socialMediaHandles) {
+        this();
         setName(name);
         setSurname(surname);
         setEmails(email);

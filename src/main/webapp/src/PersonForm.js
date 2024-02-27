@@ -13,7 +13,7 @@ function PersonForm() {
     const { id } = useParams();
     const [name, setName] = useState("");
     const [surname, setSurname] = useState("");
-    const [emails, setEmails] = useState([{email: "", type: ""}]);
+    const [emails, setEmails] = useState([]);
     const [importantDates, setImportantDates] = useState([]);
     const [socialMediaHandles, setSocialMediaHandles] = useState([]);
 

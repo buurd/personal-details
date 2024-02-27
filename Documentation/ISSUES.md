@@ -8,7 +8,7 @@ Issues for Personal-details.
 |       2 |  BUG    | 2024-02-25 | Refreshed the browser and got an errormessage.
                          Problem: Can't reload page to see the same information.
                          Expected: Should come back to the same view as I was looking at.      | NONE |             |
-|       3 |  BUG    | 2024-02-25 | Create a new Person with to dates
+|       3 |  BUG    | 2024-02-25 | Create a new Person with two dates
                          Then edit that person
                          Problem: Server error: detached entity passed to persist
                          Expected: To see the PersonView with changed attributes               | NONE |             |

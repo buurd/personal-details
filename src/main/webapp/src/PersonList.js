@@ -12,15 +12,20 @@ class PersonList extends Component {
     }
 
     componentDidMount() {
-        // Call your API here
         fetch('/persons')
-            .then((response) => response.json())
+            .then((response) => {
+                console.log("Response: ", response);
+                return response.json();
+            })
             .then((data) => {
                 if (Array.isArray(data)) {
-                    this.setState({persons: data});
+                    this.setState({ persons: data });
                 } else {
                     console.log('Error: Expected an array but received', data);
                 }
+            })
+            .catch((error) => {
+                console.error('Error:', error);
             });
     }
 

@@ -71,10 +71,12 @@ The system has a domain. Currently it has the following objects
 
 - As a user of the system I would like to add and remove on all attributes that are lists in the Person-object.
 
+- As a user of the system, I would like to add, edit, and remove multiple entries on all attributes that are lists (email addresses, important dates, and social media handles) in the Person object without encountering server errors.
+
 # Non functional requirements
  - The application shall not contain dependencies on deprecated dependencies. 
- - The application shall not contain dependencies with known security flaws.
-
+ - The application shall not contain dependencies with known security flaws. 
+ - The system should appropriately handle and respond to errors arising from operations on list-type attributes (email addresses, important dates, and social media handles). In case of a server error, a clear error message should be provided, and the system should either offer guidance to resolve the issue or handle it automatically to ensure uninterrupted workflow.
 
 
 

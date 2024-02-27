@@ -1,5 +1,6 @@
 package se.attafemton.personal.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -11,6 +12,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Convert;
 import se.attafemton.personal.UuidToBinaryConverter;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -26,7 +29,8 @@ public class ImportantDate {
     @Convert(converter = UuidToBinaryConverter.class)
     private UUID id;
     private DateType type;
-    private Date date;
+    @JsonFormat(pattern="yyyy-MM-dd'T'HH:mm:ss.SSSSSSSSS")
+    private LocalDateTime date;
     private DateFormat format;
 
     public enum DateType {
@@ -40,7 +44,7 @@ public class ImportantDate {
     public ImportantDate() {
     }
 
-    public ImportantDate(DateType type, Date date, DateFormat format) {
+    public ImportantDate(DateType type, LocalDateTime date, DateFormat format) {
         this.type = type;
         this.date = date;
         this.format = format;
@@ -50,11 +54,19 @@ public class ImportantDate {
         return id;
     }
 
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
     public DateType getType() {
         return type;
     }
 
-    public Date getDate() {
+    public void setDate(LocalDateTime date) {
+        this.date = date;
+    }
+
+    public LocalDateTime getDate() {
         return date;
     }
 
