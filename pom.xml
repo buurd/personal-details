@@ -95,23 +95,38 @@
                 </executions>
             </plugin>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0-M5</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <goals>
+                            <goal>start</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                    <execution>
+                        <id>post-integration-test</id>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <phase>install</phase>
+                    </execution>
+                </executions>
             </plugin>
-
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <version>3.0.0-M5</version>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>integration-test</goal>
-                        <goal>verify</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
@@ -122,6 +137,7 @@
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
+                        <phase>process-sources</phase>
                     </execution>
                     <execution>
                         <id>npm install</id>
@@ -129,9 +145,9 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>install cypress cypress-cucumber-preprocessor --save-dev</arguments>
+                            <arguments>install cypress cypress-cucumber-preprocessor -save-dev</arguments>
                         </configuration>
-                        <phase>generate-resources</phase>
+                        <phase>process-sources</phase>
                     </execution>
                     <execution>
                         <id>npm test</id>
@@ -141,7 +157,7 @@
                         <configuration>
                             <arguments>run test</arguments>
                         </configuration>
-                        <phase>test</phase>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
                 <configuration>
