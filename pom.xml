@@ -115,41 +115,39 @@
             <plugin>
                 <groupId>com.github.eirslett</groupId>
                 <artifactId>frontend-maven-plugin</artifactId>
-                <version>1.12.0</version>
+                <version>1.12.1</version>
                 <executions>
                     <execution>
                         <id>install node and npm</id>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
-                        <phase>generate-resources</phase>
                     </execution>
                     <execution>
                         <id>npm install</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
-                        <phase>generate-resources</phase>
                         <configuration>
-                            <arguments>install</arguments>
+                            <arguments>install cypress cypress-cucumber-preprocessor --save-dev</arguments>
                         </configuration>
+                        <phase>generate-resources</phase>
                     </execution>
                     <execution>
-                        <id>npm run build</id>
+                        <id>npm test</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
-                        <phase>generate-resources</phase>
                         <configuration>
-                            <arguments>run build</arguments>
+                            <arguments>run test</arguments>
                         </configuration>
+                        <phase>test</phase>
                     </execution>
                 </executions>
                 <configuration>
-                    <nodeVersion>v20.11.0</nodeVersion>
-                    <npmVersion>10.2.4</npmVersion>
-                    <workingDirectory>src/main/webapp</workingDirectory>
-                    <installDirectory>target</installDirectory>
+                    <nodeVersion>v20.9.0</nodeVersion>
+                    <npmVersion>v10.5.0</npmVersion>
+                    <workingDirectory>${project.basedir}</workingDirectory>
                 </configuration>
             </plugin>
         </plugins>
