@@ -52,7 +52,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-            <version>3.2.2</version>
             <scope>test</scope>
         </dependency>
 
@@ -69,11 +68,25 @@
                 <directory>src/main/resources</directory>
             </resource>
             <resource>
-                <directory>webapp</directory>
-                <targetPath>static</targetPath>
+                <directory>src/main/webapp/build</directory>
+                <targetPath>src/main/static</targetPath>
             </resource>
         </resources>
         <plugins>
+            <plugin>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <filesets>
+                        <fileset>
+                            <directory>${basedir}/src/main/webapp/build/*</directory>
+                        </fileset>
+                        <fileset>
+                            <directory>${basedir}/src/main/resources/static/*</directory>
+                        </fileset>
+                    </filesets>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
@@ -133,7 +146,7 @@
                 <version>1.12.1</version>
                 <executions>
                     <execution>
-                        <id>install node and npm</id>
+                        <id>install node and npm for cypress</id>
                         <goals>
                             <goal>install-node-and-npm</goal>
                         </goals>
@@ -150,7 +163,7 @@
                         <phase>process-sources</phase>
                     </execution>
                     <execution>
-                        <id>npm test</id>
+                        <id>npm test for cypress</id>
                         <goals>
                             <goal>npm</goal>
                         </goals>
@@ -159,6 +172,39 @@
                         </configuration>
                         <phase>verify</phase>
                     </execution>
+
+                    <execution>
+                        <id>install node and npm for react</id>
+                        <goals>
+                            <goal>install-node-and-npm</goal>
+                        </goals>
+                        <configuration>
+                            <workingDirectory>src/main/webapp</workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>npm install for react</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>install</arguments>
+                            <workingDirectory>src/main/webapp</workingDirectory>
+                        </configuration>
+                    </execution>
+
+                    <execution>
+                        <id>npm run build react</id>
+                        <goals>
+                            <goal>npm</goal>
+                        </goals>
+                        <configuration>
+                            <arguments>run build</arguments>
+                            <workingDirectory>src/main/webapp</workingDirectory>
+                        </configuration>
+                    </execution>
+
                 </executions>
                 <configuration>
                     <nodeVersion>v20.9.0</nodeVersion>
@@ -168,5 +214,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

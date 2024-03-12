@@ -9,9 +9,9 @@ function App() {
         <Router>
             <Routes>
                 <Route path="/personList" element={<PersonList />} />
-                <Route path="/personForm" element={<PersonForm />} />
-                <Route path="/personView/:id" element={<PersonView />} />
+                <Route path="/personForm/new" element={<PersonForm />} />
                 <Route path="/personForm/:id" element={<PersonForm />} />
+                <Route path="/personView/:id" element={<PersonView />} />
                 <Route path="/" element={<IndexView />}/>
             </Routes>
         </Router>

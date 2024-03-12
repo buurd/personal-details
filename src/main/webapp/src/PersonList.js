@@ -33,7 +33,7 @@ class PersonList extends Component {
         return (
             <div className="container">
                 <h1>Person List</h1>
-                <NavLink to="/personForm">
+                <NavLink to="/personForm/new">
                     <button className="button" type="button">Add new Person</button> {/* Added class */}
                 </NavLink>
                 <div className="person-list">

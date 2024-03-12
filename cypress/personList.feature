@@ -18,4 +18,4 @@ Feature: Person List
   Scenario: Click on Add new Person button
     Given I am viewing the list of persons
     When I click on the 'Add new Person' button
-    Then I should navigate to the '/personForm' page
+    Then I should navigate to the '/personForm/new' page

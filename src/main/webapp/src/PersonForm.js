@@ -35,7 +35,6 @@ function PersonForm() {
     const handleSurnameChange = event => setSurname(event.target.value);
     const handleEmailChange = (index, event) => {
         const newEmails = [...emails];
-        // Using correct property 'type' to save the state
         newEmails[index] = {...newEmails[index], [event.target.name]: event.target.value};
         setEmails(newEmails);
     };
@@ -49,7 +48,7 @@ function PersonForm() {
         newHandles[index] = {...newHandles[index], [event.target.name]: event.target.value};
         setSocialMediaHandles(newHandles);
     };
-    const handleAddEmail = () => setEmails([...emails, {email: "", type: ""}]);
+    const handleAddEmail = () => setEmails([...emails, {email: "", type: "" }]);
     const handleRemoveEmail = index => setEmails(emails.filter((_, i) => i !== index));
     const handleAddDate = () => setImportantDates([...importantDates, {}]);
     const handleRemoveDate = index => setImportantDates(importantDates.filter((_, i) => i !== index));
@@ -91,92 +90,101 @@ function PersonForm() {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} data-testid="person-form">
             <label>Name:
-                <input type="text" value={name} onChange={handleNameChange} />
+                <input type="text" value={name} onChange={handleNameChange} data-testid="name-input"/>
             </label>
             <label>Surname:
-                <input type="text" value={surname} onChange={handleSurnameChange} />
+                <input type="text" value={surname} onChange={handleSurnameChange} data-testid="surname-input"/>
             </label>
 
             {emails.map((email, index) => (
                 <div key={index}>
                     <label>Email:
-                        <input type="email" name="email" value={email.email} onChange={(event) => handleEmailChange(index, event)} />
+                        <input type="email" name="email" value={email.email} data-testid={`email-input-${index}`}
+                               onChange={(event) => handleEmailChange(index, event)}/>
                     </label>
                     <label>Type:
-                        <select name="type" value={email.type} onChange={(event) => handleEmailChange(index, event)}>
+                        <select name="type" value={email.type} onChange={(event) => handleEmailChange(index, event)}
+                                data-testid={`email-select-${index}`}>
                             {EMAIL_TYPES.map(type => <option key={type} value={type}>{type}</option>)}
                         </select>
                     </label>
                     <button onClick={(event) => {
                         event.preventDefault();
                         handleRemoveEmail(index);
-                    }}>Remove
+                        }}
+                        data-testid={`remove-email-button-${index}`}>Remove
                     </button>
                 </div>
             ))}
             <button onClick={(event) => {
                 event.preventDefault();
                 handleAddEmail();
-            }}>Add Email
+            }} data-testid="add-email-button">Add Email
             </button>
 
             {importantDates.map((date, index) => (
                 <div key={index}>
-                <label>Date:
-                        <input type="date" name="date" value={date.date} onChange={(event) => handleDateChange(index, event)} />
+                    <label>Date:
+                        <input type="date" name="date" value={date.date}
+                               onChange={(event) => handleDateChange(index, event)}
+                               data-testid={`date-input-${index}`} />
                     </label>
                     <label>Type:
-                        <select name="type" value={date.type} onChange={(event) => handleDateChange(index, event)}>
+                        <select name="type" value={date.type} onChange={(event) => handleDateChange(index, event)}
+                                data-testid={`date-type-select-${index}`}>
                             {DATE_TYPES.map(type => <option key={type} value={type}>{type}</option>)}
                         </select>
                     </label>
                     <label>Format:
-                        <select name="format" value={date.format} onChange={(event) => handleDateChange(index, event)}>
+                        <select name="format" value={date.format} onChange={(event) => handleDateChange(index, event)}
+                                data-testid={`date-format-select-${index}`}>
                             {DATE_FORMATS.map(format => <option key={format} value={format}>{format}</option>)}
                         </select>
                     </label>
                     <button onClick={(event) => {
                         event.preventDefault();
                         handleRemoveDate(index);
-                    }}>Remove
+                    }} data-testid={`remove-date-button-${index}`}>Remove
                     </button>
                 </div>
             ))}
             <button onClick={(event) => {
                 event.preventDefault();
                 handleAddDate();
-            }}>Add Date
+            }} data-testid="add-date-button">Add Date
             </button>
 
             {socialMediaHandles.map((handle, index) => (
                 <div key={index}>
                     <label>Platform:
                         <select name="platform" value={handle.platform}
-                                onChange={(event) => handleSocialMediaChange(index, event)}>
+                                onChange={(event) => handleSocialMediaChange(index, event)}
+                                data-testid={`platform-select-${index}`}>
                             {SOCIAL_MEDIA_PLATFORMS.map(platform => <option key={platform}
                                                                             value={platform}>{platform}</option>)}
                         </select>
                     </label>
                     <label>Handle:
                         <input type="text" name="handle" value={handle.handle}
-                               onChange={(event) => handleSocialMediaChange(index, event)}/>
+                               onChange={(event) => handleSocialMediaChange(index, event)}
+                               data-testid={`handle-input-${index}`}/>
                     </label>
                     <button onClick={(event) => {
                         event.preventDefault();
                         handleRemoveSocialMedia(index);
-                    }}>Remove
+                    }} data-testid={`remove-social-media-button-${index}`}>Remove
                     </button>
                 </div>
             ))}
             <button onClick={(event) => {
                 event.preventDefault();
                 handleAddSocialMedia();
-            }}>Add Social Media
+            }} data-testid="add-social-media-button">Add Social Media
             </button>
 
-            <button type="submit">Submit</button>
+            <button type="submit" data-testid="submit-button">Submit</button>
         </form>
     );
 }
