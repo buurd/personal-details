@@ -40,7 +40,7 @@ class PersonList extends Component {
                     {this.state.persons.map((person) => (
                         <div key={person.id} className="person-item">
                             <NavLink to={`/personView/${person.id}`}>
-                                <h2>{person.name} {person.surname}</h2>
+                                <h2 className="person-name">{person.name} {person.surname}</h2>
                             </NavLink>
                         </div>
                     ))}

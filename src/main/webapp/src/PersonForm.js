@@ -89,6 +89,14 @@ function PersonForm() {
         }
     };
 
+    const handleCancel = () => {
+        if (id) {
+            navigate(`/personView/${id}`);
+        } else {
+            navigate('/personList');
+        }
+    }
+
     return (
         <form onSubmit={handleSubmit} data-testid="person-form">
             <label>Name:
@@ -113,8 +121,8 @@ function PersonForm() {
                     <button onClick={(event) => {
                         event.preventDefault();
                         handleRemoveEmail(index);
-                        }}
-                        data-testid={`remove-email-button-${index}`}>Remove
+                    }}
+                            data-testid={`remove-email-button-${index}`}>Remove
                     </button>
                 </div>
             ))}
@@ -129,7 +137,7 @@ function PersonForm() {
                     <label>Date:
                         <input type="date" name="date" value={date.date}
                                onChange={(event) => handleDateChange(index, event)}
-                               data-testid={`date-input-${index}`} />
+                               data-testid={`date-input-${index}`}/>
                     </label>
                     <label>Type:
                         <select name="type" value={date.type} onChange={(event) => handleDateChange(index, event)}
@@ -185,6 +193,7 @@ function PersonForm() {
             </button>
 
             <button type="submit" data-testid="submit-button">Submit</button>
+            <button data-testid="cancel-button" onClick={handleCancel}>Cancel</button>
         </form>
     );
 }

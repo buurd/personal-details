@@ -126,3 +126,4 @@ Then('I should be shown a clear validation message', () => {
         expect(str).to.equal(`Please fill in all fields`)
     })
 })
+
