@@ -203,6 +203,8 @@
                             <arguments>run build</arguments>
                             <workingDirectory>src/main/webapp</workingDirectory>
                         </configuration>
+                        <phase>install</phase>
+
                     </execution>
 
                 </executions>

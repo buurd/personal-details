@@ -11,44 +11,46 @@ The basic mechanism of the sharing of data is the term lease. A lease has an exp
 ## Domain
 The system has a domain. Currently it has the following objects
 
-### Person (class)
+### Bounded context of Person
+
+#### Person (class)
  - id, UUID
  - name, String
  - surname, String
  - emails, List<Email>
  - socialMediaHandles, List<SocialMediaHandle>
 
-### Email (class)
+#### Email (class)
  - id, UUID
  - email, String
  - emailType, EmailType
 
-### EmailType (enum)
+#### EmailType (enum)
  - Personal
  - Work
  - Academic
  - Other
 
-### ImportantDate (class)
+#### ImportantDate (class)
  - type, String
  - date, Date
  - format, DateType
 
-### DateFormat (enum)
+#### DateFormat (enum)
  - day
  - dayTime
  - time
 
-### DateType (enum)
+#### DateType (enum)
  - Birthday
  - Weddingday
 
-### SocialMediaHandle (class)
+#### SocialMediaHandle (class)
  - id, UUID
  - platform, String
  - handle, String
 
-### SocialMediaPlatform (enum)
+#### SocialMediaPlatform (enum)
  - FACEBOOK
  - TWITTER
  - INSTAGRAM 
@@ -58,6 +60,17 @@ The system has a domain. Currently it has the following objects
  - YOUTUBE
  - PINTEREST
  - REDDIT
+
+### Bounded context of User Authentication
+
+#### User (class)
+ - username, String
+
+#### Token (class)
+ - user
+ - created
+ - lastVisited
+ - invalidated
 
 # Uses cases
 - As a user of the system i would like to register my personal details, such as 
@@ -72,6 +85,14 @@ The system has a domain. Currently it has the following objects
 - As a user of the system I would like to add and remove on all attributes that are lists in the Person-object.
 
 - As a user of the system, I would like to add, edit, and remove multiple entries on all attributes that are lists (email addresses, important dates, and social media handles) in the Person object without encountering server errors.
+
+- As a prospective user, I would like to register with a unique username. Upon successful registration, I would be directed to the start page.
+
+- As a registered user, I would like to log into the system by providing my username. Upon successful login, a `Token` would be created for my session. This `Token` should be included in all my subsequent requests. My `Token's` lastVisited time should be updated with every authenticated request.
+
+- As an authenticated user, I would like to log out from the system. Upon logging out, my session's `Token` should be invalidated, and I should be redirected to the login page.
+
+- As a system, I would need to validate an incoming `Token` for all secured endpoints. The `Token` is valid if it is associated with a user, not invalidated, and optionally within a certain duration from its last visit time.
 
 # Non functional requirements
  - The application shall not contain dependencies on deprecated dependencies. 
