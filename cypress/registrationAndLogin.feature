@@ -1,4 +1,4 @@
-# Feature: User Registration and Login
+Feature: User Registration and Login
 
 # Scenario: Register new user
 #    Given I am on the registration page
