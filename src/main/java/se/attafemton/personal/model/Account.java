@@ -11,7 +11,7 @@ import se.attafemton.personal.UuidToBinaryConverter;
 import java.util.UUID;
 
 @Entity
-public class User {
+public class Account {
 
     @Id
     @Column(columnDefinition = "BINARY(16)")
@@ -33,11 +33,11 @@ public class User {
     private String username;
 
     // Default constructor
-    public User() {
+    public Account() {
     }
 
     // Parameterized constructor
-    public User(String username) {
+    public Account(String username) {
         setUsername(username);
     }
 

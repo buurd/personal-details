@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const Registration = () => {
     const navigate = useNavigate();
     const [username, setUsername] = useState(null);
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const handleUsernameChange = event => setUsername(event.target.value);
 
@@ -26,6 +27,7 @@ const Registration = () => {
             }
         } catch (error) {
             console.error("Error:", error);
+            setErrorMessage((error.response && error.response.data && error.response.data.message) || "User already exists");
         }
     };
 
@@ -37,6 +39,7 @@ const Registration = () => {
                 <input type="text" id="username" name="username" data-testid="username-input" onChange={handleUsernameChange} />
                 <button type="submit" data-testid="submit-button">Register</button>
             </form>
+            {errorMessage && <p data-testid="error-message">{errorMessage}</p>}
         </div>
     );
 };

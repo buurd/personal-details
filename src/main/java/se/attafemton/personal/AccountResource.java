@@ -4,19 +4,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import se.attafemton.personal.model.User;
+import se.attafemton.personal.model.Account;
 
 @RestController
-@RequestMapping("/users")
-public class UserResource {
+@RequestMapping("/accounts")
+public class AccountResource {
 
     @Autowired
-    private UserRepository userRepository;
+    private AccountRepository userRepository;
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User newUser) {
+    public ResponseEntity<Account> createUser(@RequestBody Account newUser) {
         try {
-            User user = userRepository.save(newUser);
+            Account user = userRepository.save(newUser);
             return new ResponseEntity<>(user, HttpStatus.CREATED);
         } catch (Exception e) {
             // Handle potential exceptions, like duplicate usernames

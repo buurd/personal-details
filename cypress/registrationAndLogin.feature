@@ -1,15 +1,15 @@
 Feature: User Registration and Login
 
-# Scenario: Register new user
-#    Given I am on the registration page
-#    When  I enter a unique username
-#    Then  I should be registered and redirected to the start page at 'localhost:8080'
+Scenario: Register new user
+   Given I am on the registration page
+   When  I enter a unique username
+   Then  I should be registered and redirected to the start page at 'localhost:8080'
 
-# Scenario: Register a duplicate username
-#    Given I am on the registration page
-#    And  a user with 'username' exists
-#    When I try to register with 'username'
-#    Then I should see an error that the user already exists
+Scenario: Register a duplicate username
+   Given I am on the registration page
+   And  a user with 'username' exists
+   When I try to register with 'username'
+   Then I should see an error that the user already exists
 
 # Scenario: Login with registered username
 #    Given I am on the login page

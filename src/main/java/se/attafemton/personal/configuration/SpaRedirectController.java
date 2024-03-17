@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class SpaRedirectController {
-    @RequestMapping({"/personList", "/personForm/**", "/personView/**", "/"})
+    @RequestMapping({"/personList", "/personForm/**", "/personView/**", "/registration", "/" })
     public String index() {
         return "forward:/index.html";
     }
