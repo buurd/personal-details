@@ -4,6 +4,7 @@ import PersonList from './PersonList';
 import PersonForm from './PersonForm';
 import PersonView from './PersonView';
 import Registration from './Registration';
+import LoginForm from './LoginForm';
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                 <Route path="/personForm/:id" element={<PersonForm />} />
                 <Route path="/personView/:id" element={<PersonView />} />
                 <Route path='/registration' element={<Registration />} />
+                <Route path='/login' element={<LoginForm />} />
                 <Route path="/" element={<IndexView />}/>
             </Routes>
         </Router>

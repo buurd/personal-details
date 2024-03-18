@@ -64,9 +64,11 @@ The system has a domain. Currently it has the following objects
 ### Bounded context of User Authentication
 
 #### Account (class)
+ - id
  - username, String
 
 #### Token (class)
+ - id 
  - account
  - created
  - lastVisited

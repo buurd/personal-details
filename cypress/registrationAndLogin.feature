@@ -11,12 +11,13 @@ Scenario: Register a duplicate username
    When I try to register with 'username'
    Then I should see an error that the user already exists
 
-# Scenario: Login with registered username
-#    Given I am on the login page
-#    And  I have an account with 'username'
-#    When I enter 'username'
-#    Then I should receive a token in the response headers
-#    And  I should be redirected to the start page at 'localhost:8080'
+Scenario: Login with registered username
+   Given I am on the login page
+   And  I have an account with 'username'
+   When I enter 'username'
+   Then  I should be redirected to the start page at 'localhost:8080'
+   And I should receive a token in the response headers
+
 
 # Scenario: Login with already logged in user
 #    Given I am on the login page
