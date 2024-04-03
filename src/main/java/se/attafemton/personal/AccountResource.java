@@ -8,6 +8,8 @@ import se.attafemton.personal.model.Account;
 import se.attafemton.personal.model.Token;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/accounts")
@@ -43,5 +45,20 @@ public class AccountResource {
             return ResponseEntity.ok(token.getId().toString());
         }
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Credentials");
+    }
+
+    @PostMapping("/validateToken")
+    public ResponseEntity<String> validateToken(@RequestBody TokenInfo tokenInfo) {
+        Optional<Token> token = tokenRepository.findById(tokenInfo.getToken());
+        LocalDateTime now = LocalDateTime.now();
+        if (token.isPresent()) {
+            if (!token.get().isExpired(now)) {
+                return ResponseEntity.ok("Token Valid.");
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Expired.");
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Invalid.");
+        }
     }
 }

@@ -19,11 +19,13 @@ Scenario: Login with registered username
    And I should receive a token in the response headers
 
 
-# Scenario: Login with already logged in user
-#    Given I am on the login page
-#    And  I have a valid token for 'username'
-#    When I enter 'username'
-#    Then I should be redirected to the start page at 'localhost:8080'
+Scenario: Login with already logged in user
+   Given I am on the login page
+   And  I login as 'username'
+   And  I am on the login page
+   Then I should see message about already being looged in
+   And The login button should be disabled
+   And I should be redirected to the start page after 5 seconds
 
 # Scenario: Logout from the application
 #    Given I am logged in with 'username'

@@ -57,3 +57,22 @@ Then("I should receive a token in the response headers", () => {
 And("I should be redirected to the start page at 'localhost:8080'", () => {
     cy.url().should("eq", "http://localhost:8080/");
 });
+
+Given("I login as {string}", (username) => {
+    cy.visit('/login');
+    cy.get('[data-testid="username-input"]').type(username);
+    cy.get('[data-testid="submit-button"]').click();
+});
+
+Then("I should see message about already being looged in", () => {
+    cy.get('[data-testid="error-message"]').contains('You are already logged in.');
+});
+
+And('The login button should be disabled', () => {
+    cy.get('button[data-testid="submit-button"]').should('be.disabled');
+});
+
+And('I should be redirected to the start page after 5 seconds', () => {
+    cy.wait(5000);
+    cy.url().should("eq", "http://localhost:8080/");
+});
