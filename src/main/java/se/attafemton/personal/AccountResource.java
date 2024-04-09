@@ -61,4 +61,17 @@ public class AccountResource {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token Invalid.");
         }
     }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logoutUser(@RequestBody TokenInfo token) {
+        Optional<Token> storedToken = tokenRepository.findById(token.getToken());
+
+        if (storedToken.isPresent()) {
+            storedToken.get().setInvalidated(true);  // set the token as invalid
+            tokenRepository.save(storedToken.get());
+            return ResponseEntity.ok("Logged out successfully.");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Token not found.");
+        }
+    }
 }

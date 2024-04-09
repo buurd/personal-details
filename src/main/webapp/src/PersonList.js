@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import './listStyles.css';  // <-- Add this import statement
+import './listStyles.css';
+import HeaderView from './HeaderView';
 
 class PersonList extends Component {
 
@@ -32,6 +33,7 @@ class PersonList extends Component {
     render() {
         return (
             <div className="container">
+                <HeaderView />
                 <h1>Person List</h1>
                 <NavLink to="/personForm/new">
                     <button className="button" type="button">Add new Person</button> {/* Added class */}

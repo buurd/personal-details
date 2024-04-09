@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import './formStyles.css';
+import HeaderView from './HeaderView';
 
 const EMAIL_TYPES = ['Select a value', 'PERSONAL', 'WORK', 'ACADEMIC', 'OTHERS'];
 const SOCIAL_MEDIA_PLATFORMS = ['Select a value', 'FACEBOOK', 'TWITTER', 'INSTAGRAM', 'LINKEDIN', 'SNAPCHAT', 'TIKTOK', 'YOUTUBE', 'PINTEREST', 'REDDIT'];
@@ -98,6 +99,8 @@ function PersonForm() {
     }
 
     return (
+        <div>
+        <HeaderView />
         <form onSubmit={handleSubmit} data-testid="person-form">
             <label>Name:
                 <input type="text" value={name} onChange={handleNameChange} data-testid="name-input"/>
@@ -195,6 +198,7 @@ function PersonForm() {
             <button type="submit" data-testid="submit-button">Submit</button>
             <button data-testid="cancel-button" onClick={handleCancel}>Cancel</button>
         </form>
+        </div>
     );
 }
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './indexStyles.css';
 import { Link, useParams } from 'react-router-dom';
+import HeaderView from './HeaderView';
 
 const PersonView = () => {
     const [person, setPerson] = useState(null);
@@ -15,6 +16,7 @@ const PersonView = () => {
 
     return person && (
         <div>
+            <HeaderView />
             <h1 data-testid="person-heading">{person.name} {person.surname}</h1>
             <h2 data-testid="emails-heading">Emails</h2>
             {person.emails && person.emails.map((email, index) => (

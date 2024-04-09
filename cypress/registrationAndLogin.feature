@@ -27,12 +27,12 @@ Scenario: Login with already logged in user
    And The login button should be disabled
    And I should be redirected to the start page after 5 seconds
 
-# Scenario: Logout from the application
-#    Given I am logged in with 'username'
-#    And  I have a valid token for 'username'
-#    When I attempt to logout
-#    Then my token should be invalidated
-#    And  I should be redirected to the login page
+
+Scenario: Logout from the application
+    Given I am logged in with 'username'
+    When I attempt to logout
+    And  I should be redirected to the login page
+    And  No error message should be visible
 
 # Scenario: Accessing the start page without logging in
 #    Given I am not logged in

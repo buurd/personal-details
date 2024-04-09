@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import HeaderView from './HeaderView';
 
 const Registration = () => {
     const navigate = useNavigate();
@@ -33,6 +34,7 @@ const Registration = () => {
 
     return (
         <div>
+            <HeaderView />
             <h1>Registration Page</h1>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="username">Username:</label>

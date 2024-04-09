@@ -76,3 +76,27 @@ And('I should be redirected to the start page after 5 seconds', () => {
     cy.wait(5000);
     cy.url().should("eq", "http://localhost:8080/");
 });
+
+Given("I am logged in with {string}", (username) => {
+    // Assuming that a successful login ends on the index page
+    cy.visit('/login');
+    cy.get('[data-testid="username-input"]').type(username);
+    cy.get('[data-testid="submit-button"]').click();
+    cy.url().should("eq", "http://localhost:8080/");
+});
+
+When("I attempt to logout", () => {
+    // Assuming that the logout button has an id of 'logout-button'
+    cy.get('button[data-testid="logout-button"]').click();
+});
+
+Then("I should be redirected to the login page", () => {
+    // This assumes that after logout, the user is redirected to the login page
+    cy.url().should("eq", "http://localhost:8080/login");
+});
+
+And("No error message should be visible", () => {
+    // This assumes that any errors, if they exist, have a data-testid of 'error-message'
+    cy.get('[data-testid="error-message"]').should('not.exist');
+})
+
