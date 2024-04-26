@@ -1,5 +1,8 @@
 Feature: Editing an existing user
 
+  Background:
+    Given the user is logged in with username "testUser"
+
   Scenario: Edit an existing user
     Given I am on the "personList" page
     When I click on a person's details

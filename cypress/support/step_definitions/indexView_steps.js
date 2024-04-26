@@ -9,3 +9,4 @@ Then('I should see "Welcome to our Application" as the title', () => {
 And('I should see the "View Persons" link', () => {
     cy.get('a').contains('View Persons').should('exist');
 });
+

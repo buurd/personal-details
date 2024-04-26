@@ -5,7 +5,8 @@
   "main": "__index.js",
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build"
+    "build": "react-scripts build",
+    "build:dev": "set \"GENERATE_SOURCEMAP=true\" && react-scripts build"
   },
   "author": "Roland Heimdahl",
   "license": "ISC",

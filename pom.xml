@@ -200,7 +200,7 @@
                             <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>run build</arguments>
+                            <arguments>run build:dev</arguments>
                             <workingDirectory>src/main/webapp</workingDirectory>
                         </configuration>
                         <phase>compile</phase>

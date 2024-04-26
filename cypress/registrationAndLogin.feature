@@ -3,7 +3,7 @@ Feature: User Registration and Login
 Scenario: Register new user
    Given I am on the registration page
    When  I enter a unique username
-   Then  I should be registered and redirected to the start page at 'localhost:8080'
+   Then  I should be registered and redirected to the login page at 'localhost:8080/login'
 
 Scenario: Register a duplicate username
    Given I am on the registration page
@@ -34,10 +34,9 @@ Scenario: Logout from the application
     And  I should be redirected to the login page
     And  No error message should be visible
 
-# Scenario: Accessing the start page without logging in
-#    Given I am not logged in
-#    When  I try to access the start page at 'localhost:8080'
-#    Then I should be redirected to the login page
+Scenario: Accessing the start page without logging in
+    When  I try to access the start page at 'localhost:8080'
+    Then I should be redirected to the login page
 
 # Scenario: Accessing the registration page from the login page
 #    Given I am on the login page

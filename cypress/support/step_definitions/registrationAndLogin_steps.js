@@ -9,8 +9,9 @@ When("I enter a unique username", () => {
     cy.get("[data-testid=\"submit-button\"]").click();
 });
 
-Then("I should be registered and redirected to the start page at 'localhost:8080'", () => {
-    cy.url().should("eq", "http://localhost:8080/");
+
+Then(`I should be registered and redirected to the login page at {string}`, (url) => {
+    cy.url().should('include', url); // assert that current URL should include '/login'
 });
 
 Given('a user with {string} exists', (username) => {
@@ -100,3 +101,10 @@ And("No error message should be visible", () => {
     cy.get('[data-testid="error-message"]').should('not.exist');
 })
 
+When("I try to access the start page at {string}", (url) => {
+    cy.visit(url);
+});
+
+Then("I should be redirected to the login page", () => {
+    cy.url().should("eq", "http://localhost:8080/login");
+});

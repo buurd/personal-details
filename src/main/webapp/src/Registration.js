@@ -22,7 +22,7 @@ const Registration = () => {
             const response = await axios.post('/accounts', { username });
 
             if (response.status === 201) {
-                window.location = '/';
+                window.location = '/login';
             } else {
                 // handle registration error
             }

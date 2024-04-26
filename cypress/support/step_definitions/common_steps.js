@@ -11,3 +11,11 @@ When('I click the {string} button', (buttonTestId) => {
 Then('I should be redirected to the {string} page', (pagePath) => {
     cy.url().should('include', `${pagePath}`);
 });
+
+Given('the user is logged in with username {string}', (username) => {
+    cy.request('POST', '/accounts/login', { username }) // send a request directly to the server
+        .then((response) => {
+            window.localStorage.setItem('token', response.body); // set the token in local storage
+            cy.visit('/'); // go to the homepage
+        });
+});
