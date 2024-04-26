@@ -38,7 +38,7 @@ Scenario: Accessing the start page without logging in
     When  I try to access the start page at 'localhost:8080'
     Then I should be redirected to the login page
 
-# Scenario: Accessing the registration page from the login page
-#    Given I am on the login page
-#    When  I click on the registration link
-#    Then I should be redirected to the registration page
+Scenario: Accessing the registration page from the login page
+   Given I am on the login page
+   When  I click on the registration link
+   Then I should be redirected to the registration page

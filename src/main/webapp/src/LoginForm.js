@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -65,6 +66,7 @@ const LoginForm = () => {
                 <input type="text" id="username" name="username" data-testid="username-input" onChange={handleUsernameChange} />
                 <button type="submit" data-testid="submit-button" disabled={buttonDisabled}>Login</button>
             </form>
+            <Link to="/register">Register</Link>
             {errorMessage && <p data-testid="error-message">{errorMessage}</p>}
         </div>
     );

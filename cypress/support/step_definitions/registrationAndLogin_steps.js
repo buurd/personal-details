@@ -108,3 +108,15 @@ When("I try to access the start page at {string}", (url) => {
 Then("I should be redirected to the login page", () => {
     cy.url().should("eq", "http://localhost:8080/login");
 });
+
+Given('I am on the login page', () => {
+    cy.visit('/login');
+});
+
+When('I click on the registration link', () => {
+    cy.get('a[href="/register"]').click();
+});
+
+Then('I should be redirected to the registration page', () => {
+    cy.url().should('include', '/register');
+});
