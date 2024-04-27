@@ -9,7 +9,12 @@ const PersonView = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        axios.get(`/persons/${id}`)
+        const token = window.localStorage.getItem('token');
+        const config = {
+            headers: { 'Authorization': token }
+        };
+
+        axios.get(`/persons/${id}`, config)
             .then(response => setPerson(response.data))
             .catch(error => console.error('Error:', error));
     }, [id]);  // run the effect whenever the id changes

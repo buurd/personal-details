@@ -20,7 +20,11 @@ function PersonForm() {
 
     useEffect(() => {
         if (id) {
-            axios.get(`/persons/${id}`).then(response => {
+            const token = window.localStorage.getItem('token');
+            const config = {
+                headers: { 'Authorization': token }
+            };
+            axios.get(`/persons/${id}`, config).then(response => {
                 const person = response.data;
 
                 setName(person.name || "");
@@ -76,6 +80,12 @@ function PersonForm() {
             return;
         }
 
+        const token = window.localStorage.getItem('token');
+
+        const config = {
+            headers: { 'Authorization': token }
+        };
+
         try {
             const response = await axios.post('/persons', {
                 name,
@@ -83,7 +93,7 @@ function PersonForm() {
                 emails,
                 importantDates,
                 socialMediaHandles,
-            });
+            }, config);
             navigate(`/personView/${response.data.id}`);
         } catch (error) {
             console.error("Error:", error);

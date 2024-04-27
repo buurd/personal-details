@@ -13,7 +13,16 @@ class PersonList extends Component {
     }
 
     componentDidMount() {
-        fetch('/persons')
+        const token = window.localStorage.getItem('token');
+        const fetchOptions = {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token   // Pass the token here
+            }
+        };
+
+        fetch('/persons', fetchOptions)
             .then((response) => {
                 console.log("Response: ", response);
                 return response.json();

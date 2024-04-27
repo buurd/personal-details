@@ -1,23 +1,28 @@
 package se.attafemton.personal;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import se.attafemton.personal.model.Account;
 import se.attafemton.personal.model.Email;
 import se.attafemton.personal.model.ImportantDate;
 import se.attafemton.personal.model.Person;
 import se.attafemton.personal.model.SocialMediaHandle;
+import se.attafemton.personal.model.Token;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,6 +32,37 @@ public class PersonResourceIT {
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Autowired
+    private TokenRepository tokenRepository;
+
+    @Autowired
+    private AccountRepository accountRepository;
+
+    @BeforeEach
+    public void setup() {
+        tokenRepository.deleteAll();
+    }
+
+    private HttpHeaders createHeaders(){
+        HttpHeaders headers = new HttpHeaders();
+        String validToken = createAndStoreValidToken();
+        headers.add("Authorization", validToken);
+        return headers;
+    }
+
+    private String createAndStoreValidToken() {
+        Token token = new Token();
+        Account dummyAccount = new Account();
+        String uniqueUsername = "dummy" + UUID.randomUUID().toString();
+        dummyAccount.setUsername(uniqueUsername);
+
+        accountRepository.save(dummyAccount);
+        token.setAccount(dummyAccount);
+        token.setLastVisited(LocalDateTime.now());
+        tokenRepository.save(token);
+        return token.getId().toString();
+    }
+
     @Test
     public void testCreatePerson() {
         Email email = new Email("john.doe@example.com", Email.EmailType.PERSONAL);
@@ -34,7 +70,7 @@ public class PersonResourceIT {
         SocialMediaHandle socialMediaHandle = new SocialMediaHandle("plattform", "handle");
         Person person = new Person("John", "Doe", Collections.singletonList(email), Collections.singletonList(importantDate), Collections.singletonList(socialMediaHandle));
 
-        HttpEntity<Person> request = new HttpEntity<>(person);
+        HttpEntity<Person> request = new HttpEntity<>(person, createHeaders());
         ResponseEntity<Person> response = restTemplate
                 .exchange("/persons", HttpMethod.POST, request, Person.class);
 
@@ -71,7 +107,7 @@ public class PersonResourceIT {
         SocialMediaHandle socialMediaHandle = new SocialMediaHandle("plattform", "handle");
         Person person = new Person("John", "Doe", Arrays.asList(email1, email2), Arrays.asList(importantDate1, importantDate2), Collections.singletonList(socialMediaHandle));
 
-        HttpEntity<Person> request = new HttpEntity<>(person);
+        HttpEntity<Person> request = new HttpEntity<>(person, createHeaders());
         ResponseEntity<Person> response = restTemplate
                 .exchange("/persons", HttpMethod.POST, request, Person.class);
 
@@ -121,7 +157,7 @@ public class PersonResourceIT {
         newPerson.setSurname("Test surname");
 
         // POST new person to create it
-        HttpEntity<Person> newPersonEntity = new HttpEntity<>(newPerson);
+        HttpEntity<Person> newPersonEntity = new HttpEntity<>(newPerson, createHeaders());
         ResponseEntity<Person> createdPersonResponse = restTemplate.postForEntity(
                 "/persons",
                 newPersonEntity,
@@ -137,7 +173,7 @@ public class PersonResourceIT {
         updatedPerson.setSurname("Updated surname");
 
         // Create HTTP entity with updated person
-        HttpEntity<Person> updatedPersonEntity = new HttpEntity<>(updatedPerson);
+        HttpEntity<Person> updatedPersonEntity = new HttpEntity<>(updatedPerson, createHeaders());
 
         // Send PUT request to update the person
         ResponseEntity<Person> updatedPersonResponse = restTemplate.exchange(

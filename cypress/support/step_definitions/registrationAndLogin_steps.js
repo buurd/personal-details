@@ -114,9 +114,9 @@ Given('I am on the login page', () => {
 });
 
 When('I click on the registration link', () => {
-    cy.get('a[href="/register"]').click();
+    cy.get('a[href="/registration"]').click();
 });
 
 Then('I should be redirected to the registration page', () => {
-    cy.url().should('include', '/register');
+    cy.url().should('include', '/registration');
 });
