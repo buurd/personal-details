@@ -5,7 +5,7 @@ Feature: Person Form - Create New Person
   So that I can easily input and manage their details
 
   Background:
-    Given the user is logged in with username "testUser"
+    Given the user is logged in with username "username"
     Given I am on the person form page with a blank form
 
 

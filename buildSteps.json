@@ -1,0 +1,53 @@
+{
+  "steps" :
+  [
+    {
+      "description" : "Change to the current project root directory",
+      "command":  "cd ."
+    },
+    {
+      "description" : "Clean the maven project",
+      "command":  "mvn clean"
+    },
+    {
+      "description" : "Npm install for Cypress",
+      "command":  "npm install cypress cypress-cucumber-preprocessor --save-dev"
+    },
+    {
+      "description" : "Change to the React project directory",
+      "command":  "cd ./src/main/webapp"
+    },
+    {
+      "description" : "Npm install for React",
+      "command":  "npm install"
+    },
+    {
+      "description" : "Npm build for React",
+      "command":  "npm run build:dev"
+    },
+    {
+      "description" : "Change back to the project root directory",
+      "command":  "cd .."
+    },
+    {
+      "description" : "Copy operation from '/src/main/webapp/build' to '/src/main/resources/static'",
+      "command":  "cp -r ./src/main/webapp/build/* ./src/main/resources/static/"
+    },
+    {
+      "description" : "Start the Application",
+      "command": "mvn spring-boot:run | while IFS= read -r line; do echo \"$line\"; if [[ \"$line\" == *\"$START_MSG\"* ]]; then pkill -P $$ mvn; fi; done"
+    },
+    {
+      "description" : "Run integration tests",
+      "command":  "mvn verify"
+    },
+    {
+      "description" : "Npm test for Cypress",
+      "command":  "npm test"
+    },
+    {
+      "description" : "Stop the Application after integration tests",
+      "command":  "mvn spring-boot:stop"
+    }
+  ]
+}

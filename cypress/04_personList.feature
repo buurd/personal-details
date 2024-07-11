@@ -4,7 +4,7 @@ Feature: Person List
   So I can choose a person to view their details
 
   Background:
-    Given the user is logged in with username "testUser"
+    Given the user is logged in with username "username"
     Given a list of people is retrieved
 
   Scenario: Display person list

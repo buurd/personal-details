@@ -1,7 +1,7 @@
 Feature: Editing an existing user
 
   Background:
-    Given the user is logged in with username "testUser"
+    Given the user is logged in with username "username"
 
   Scenario: Edit an existing user
     Given I am on the "personList" page
